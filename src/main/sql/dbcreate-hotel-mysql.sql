@@ -235,6 +235,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`rooms` (
   `type_id` INT NOT NULL,
   `status_id` INT NOT NULL,
   `cost_per_day` DOUBLE NOT NULL,
+  `floor` INT NOT NULL,
   PRIMARY KEY (`id`),
 INDEX `fk_rooms_room_classes1_idx` (`class_id` ASC) VISIBLE,
 INDEX `fk_rooms_room_statuses1_idx` (`status_id` ASC) VISIBLE,

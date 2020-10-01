@@ -65,3 +65,27 @@ INSERT INTO `hotel`.`room_classes` (`name`) VALUES ('Standart');
 INSERT INTO `hotel`.`room_classes` (`name`) VALUES ('Bungalow');
 INSERT INTO `hotel`.`room_classes` (`name`) VALUES ('Apartament');
 INSERT INTO `hotel`.`room_classes` (`name`) VALUES ('Honeymoon Room');
+
+-- booking_statuses
+
+INSERT INTO `hotel`.`booking_statuses` (`name`) VALUES ('booked');
+INSERT INTO `hotel`.`booking_statuses` (`name`) VALUES ('expired');
+
+-- payment_statuses
+
+INSERT INTO `hotel`.`payment_statuses` (`name`) VALUES ('expected payment');
+INSERT INTO `hotel`.`payment_statuses` (`name`) VALUES ('paid');
+
+-- rooms
+
+INSERT INTO `hotel`.`rooms` (`class_id`, `type_id`, `status_id`, `cost_per_day`, `floor`) VALUES ('1', '1', '1', '300.5', '1');
+INSERT INTO `hotel`.`rooms` (`class_id`, `type_id`, `status_id`, `cost_per_day`, `floor`) VALUES ('7', '2', '1', '450.7', '1');
+INSERT INTO `hotel`.`rooms` (`class_id`, `type_id`, `status_id`, `cost_per_day`, `floor`) VALUES (7, 3, 1, 570.1, 1);
+
+
+
+
+
+
+
+
