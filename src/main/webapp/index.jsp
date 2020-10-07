@@ -11,6 +11,8 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <form action="/home">
+    <input type="submit" value="Execute">
+  </form>
   </body>
 </html>

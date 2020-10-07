@@ -10,9 +10,11 @@
     <packaging>war</packaging>
 
     <properties>
-        <javax.servlet-api>4.0.1</javax.servlet-api>
-        <javaee-api>8.0.1</javaee-api>
-        <javaee-web-api>8.0.1</javaee-web-api>
+        <servlet.version>4.0.1</servlet.version>
+        <javaee.version>8.0.1</javaee.version>
+        <javaee-web.version>8.0.1</javaee-web.version>
+        <jstl.version>1.2</jstl.version>
+        <mysql-connector.version>8.0.19</mysql-connector.version>
     </properties>
 
     <dependencies>
@@ -20,22 +22,40 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api}</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>${javaee-api}</version>
+            <version>${javaee.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>${javaee-web-api}</version>
+            <version>${javaee-web.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
         </dependency>
 
     </dependencies>
