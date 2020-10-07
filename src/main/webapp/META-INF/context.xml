@@ -5,7 +5,6 @@ Data source and connection pool configuration
 =============================================================-->
 
 <Context>
-
 <!--============================================================= 
 maxActive: the maximum number of active connections that can be 
 allocated from this pool at the same time, negative for no limit.

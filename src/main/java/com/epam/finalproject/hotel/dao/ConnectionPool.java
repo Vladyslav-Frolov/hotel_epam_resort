@@ -1,6 +1,5 @@
 package com.epam.finalproject.hotel.dao;
 
-
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
