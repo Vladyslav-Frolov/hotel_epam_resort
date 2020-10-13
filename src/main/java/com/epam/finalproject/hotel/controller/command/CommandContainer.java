@@ -1,6 +1,7 @@
 package com.epam.finalproject.hotel.controller.command;
 
 import com.epam.finalproject.hotel.controller.command.commands.HomePageCommand;
+import com.epam.finalproject.hotel.controller.command.commands.ListFreeRoomsCommand;
 import com.epam.finalproject.hotel.controller.command.commands.NoCommand;
 import org.apache.log4j.Logger;
 
@@ -22,6 +23,7 @@ public class CommandContainer {
 		// commands
 		commands.put("noCommand", new NoCommand());
 		commands.put("homePage", new HomePageCommand());
+		commands.put("fetchRooms", new ListFreeRoomsCommand());
 
 		log.debug("Command container was successfully initialized");
 		log.trace("Number of commands --> " + commands.size());
@@ -42,5 +44,4 @@ public class CommandContainer {
 		
 		return commands.get(commandName);
 	}
-	
 }

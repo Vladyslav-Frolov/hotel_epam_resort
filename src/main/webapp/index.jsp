@@ -16,104 +16,82 @@
 <html lang="${param.lang}">
 <head>
     <title>Home page</title>
-    <style>
-        .design {
-            display: inline-block; /* Строчно-блочный элемент */
-            padding: 5px 20px; /* Добавляем поля */
-            text-decoration: none; /* Убираем подчёркивание у ссылки */
-            cursor: pointer; /* Курсор в виде руки */
-            background: #deefff; /* Фон для браузеров, не поддерживающих градиент */
-            /* Градиент */
-            background: -moz-linear-gradient(top, #deefff 0%, #98bede 100%);
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #deefff), color-stop(100%, #98bede));
-            background: -webkit-linear-gradient(top, #deefff 0%, #98bede 100%);
-            background: -o-linear-gradient(top, #deefff 0%, #98bede 100%);
-            background: -ms-linear-gradient(top, #deefff 0%, #98bede 100%);
-            background: linear-gradient(top, #deefff 0%, #98bede 100%);
-            border-radius: 10px; /* Скругляем уголки */
-            border: 1px solid #008; /* Добавляем синюю рамку */
-            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #2c539e; /* Цвет текста и ссылки */
-        }
-    </style>
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<fmt:message key="label.greatings" />
-<br/>
+<%--внедрение хедера, внутри хедера:
+1. приветствие
+2. выбор языка--%>
+<%@ include file="WEB-INF/jsp/common/header.jsp" %>
 
-<h2>
-    <fmt:message key="label.chooseSessionLocale" />
-</h2>
 
-<form id="locale" action="/frontControllerServlet" method="post">
-    <input type="hidden" name="command" value="homePage"/>
-    <select name="lang">
-        <option value="en"><fmt:message key="label.lang.en"/></option>
-        <option value="ua"><fmt:message key="label.lang.ua"/></option>
-    </select>
-    <input type="submit" value="<fmt:message key="label.changeLang"/>">
+<%--запрос на выбор номеров по дате--%>
+<form id="free_rooms_list" action="/frontControllerServlet" method="post">
+    <input type="hidden" name="command" value="fetchRooms"/>
+
+    <p>
+        <label><fmt:message key="list_menu_jsp.check_in_date"/></label>
+        <input type="date" id="date_in" name="check_in_date"/>
+    </p>
+    <p>
+        <label><fmt:message key="list_menu_jsp.check_out_date"/></label>
+        <input type="date" id="date_out" name="check_out_date"/>
+    </p>
+
+    <p>
+        <button class="design" type="submit">
+            <fmt:message key="list_menu_jsp.button.choose.period"/>
+        </button>
+    </p>
 
 </form>
 
+<%--просьба о вводе данных → сделать локализацию--%>
+<c:out value="${ enter_period}"/>
+<c:out value="${ check_in_date}"/>
 
 
+<%--вывод таблицы, если параметр не пустой--%>
+<c:if test="${not empty freeRoomsList}">
+<form id="to_book" action="controller">
+    <input type="hidden" name="command" value="toBook"/>
+    <input type="submit" value='<fmt:message key="list_menu_jsp.button.booking"/>'/>
+    <table class="table">
+        <tr>
+            <th>Room number</th>
+            <th>Room type</th>
+            <th>Total Price</th>
+            <th>Choose</th>
+        </tr>
+
+        <c:forEach var="elem" items="${freeRoomsList}" varStatus="status">
+            <tr>
+                <td><c:out value="${ elem.id }"/></td>
+                <td><c:out value="${ elem.roomType }"/></td>
+                <td><c:out value="${ elem.totalPrice }"/></td>
+                <td><input type="checkbox" name="elemId" value="${elem.id}"/></td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    </c:if>
+
+    <c:set var="p" value="${param.pageNumber}"/> <%-- current page (1-based) --%>
+    <c:set var="l" value="5"/> <%-- amount of page links to be displayed --%>
+    <c:set var="r" value="${l / 2}"/> <%-- minimum link range ahead/behind --%>
+    <c:set var="t" value="${tot}"/> <%-- total amount of pages --%>
+
+    <c:set var="begin" value="${((p - r) > 0 ? ((p - r) < (t - l + 1) ? (p - r) : (t - l)) : 0) + 1}"/>
+    <c:set var="end" value="${(p + r) < t ? ((p + r) > l ? (p + r) : l) : t}"/>
+
+    <c:forEach begin="${begin}" end="${end}" var="page">
+        ${page}
+    </c:forEach>
 
 
-
-
-
-
-
-
-
-
-
-
-
-<table id="main-container">
-
-    <%--    <%@ include file="/WEB-INF/jspf/header.jspf" %>--%>
-
-    <tr>
-        <td class="content">
-            <%-- CONTENT --%>
-
-            <form id="make_order" action="controller">
-                <input type="hidden" name="command" value="makeOrder"/>
-                <input type="submit" value='<fmt:message key="list_menu_jsp.button.make_an_order"/>'/>
-
-                <table id="list_menu_table">
-                    <thead>
-                    <tr>
-                        <td>№</td>
-                        <td><fmt:message key="list_menu_jsp.table.header.name"/></td>
-                        <td><fmt:message key="list_menu_jsp.table.header.price"/></td>
-                        <td><fmt:message key="list_menu_jsp.table.header.order"/></td>
-                    </tr>
-                    </thead>
-
-                    <c:set var="k" value="0"/>
-                    <c:forEach var="item" items="${menuItems}">
-                        <c:set var="k" value="${k+1}"/>
-                        <tr>
-                            <td><c:out value="${k}"/></td>
-                            <td>${item.name}</td>
-                            <td>${item.price}</td>
-                            <td><input type="checkbox" name="itemId" value="${item.id}"/></td>
-                        </tr>
-                    </c:forEach>
-                </table>
-
-            </form>
-
-            <%-- CONTENT --%>
-        </td>
-    </tr>
-
-    <%--    <%@ include file="/WEB-INF/jspf/footer.jspf" %>--%>
-
-</table>
+    <%--внедрение футера--%>
+    <%@ include file="WEB-INF/jsp/common/footer.jsp" %>
 
 </body>
 </html>

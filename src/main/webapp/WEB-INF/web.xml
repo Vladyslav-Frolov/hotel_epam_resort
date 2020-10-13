@@ -30,7 +30,12 @@
         <location>/WEB-INF/jsp/error/error_page.jsp</location>
     </error-page>
 
-    <!--============================================================
+    <!--конфигурация сессии-->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+<!--============================================================
 	i18n support
 =============================================================-->
     <!-- this way we set the resource bundle name -->
